@@ -1,0 +1,11 @@
+.active-type-link::after {
+  content: "";
+  width: 100%;
+  margin: 0 auto;
+  height: 2px;
+  background-color: rgb(255, 0, 43);
+  display: block;
+}
+.nav-link {
+  color: black !important;
+}
