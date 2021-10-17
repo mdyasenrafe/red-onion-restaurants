@@ -6,7 +6,7 @@ import UseFoods from "../../../Hooks/UseFoods";
 const Details = (props) => {
   const data = props.data;
   const handleAddToCart = props.handleAddToCart;
-
+  console.log(data);
   const { id } = useParams();
   const { foods } = UseFoods();
   const convertNumberId = parseInt(id);

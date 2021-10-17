@@ -4,6 +4,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import logo from "../../Images/logo2.png";
 import "./NavBar.css";
 import UseAuth from "../../Hooks/UseAuth";
+import UseCart from "../../Hooks/UseCart";
 
 const NavBar = (props) => {
   const { user, logOut } = UseAuth();

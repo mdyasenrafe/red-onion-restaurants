@@ -1,4 +1,3 @@
-import "./App.css";
 import NavBar from "./Componets/NavBar/NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -6,18 +5,21 @@ import Home from "./Componets/HomePage/Home/Home";
 import NotFound from "./Componets/NotFound/NotFound";
 import Footer from "./Componets/Footer/Footer";
 import Details from "./Componets/DetailsPage/Details/Details";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "./Componets/Login/Login";
 import Registation from "./Componets/Registation/Registation";
 import AuthProvider from "./Context/AuthProvider";
 import Carts from "./Componets/CartPage/Carts/Carts";
 import PrivateRoute from "./Componets/PrivateRoute/PrivateRoute";
 import OrderComplete from "./Componets/OrderComplete/OrderComplete";
+import { addToDb, getDb } from "./LocalStorage/LocalStorage";
+import UseFoods from "./Hooks/UseFoods";
 
 function App() {
-  // const [count, setCount] = useState(1);
   const [cart, setCart] = useState([]);
+  const { foods } = UseFoods();
   const handleAddToCart = (item) => {
+    addToDb(item.name);
     const newItem = [...cart, item];
     let CheckItem = [];
     for (const data of newItem) {
@@ -27,6 +29,21 @@ function App() {
     }
     setCart(CheckItem);
   };
+
+  useEffect(() => {
+    if (foods.length) {
+      const getDbMeal = getDb();
+      let storeCart = [];
+      for (const key in getDbMeal) {
+        console.log(key);
+        const addedMeal = foods.find((data) => data.name === key);
+        console.log("addedMeal", addedMeal);
+        storeCart.push(addedMeal);
+      }
+      setCart(storeCart);
+      console.log("storeCart", storeCart);
+    }
+  }, [foods]);
   return (
     <>
       <AuthProvider>

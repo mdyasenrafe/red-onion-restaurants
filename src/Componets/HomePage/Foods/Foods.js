@@ -8,8 +8,6 @@ const Foods = (props) => {
   const { foods } = UseFoods();
   const [type, setType] = useState("Lunch");
 
-  console.log("home page", props?.data?.length);
-
   const selectFoods = foods.filter((food) => food.type === type);
   return (
     <section className="py-5 container">
