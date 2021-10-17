@@ -1,35 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   GoogleMap,
-  Marker,
   LoadScript,
-  direcrtion,
+  DirectionsService,
+  DirectionsRenderer,
 } from "@react-google-maps/api";
-
+import UseAuth from "../../Hooks/UseAuth";
 const containerStyle = {
-  width: "400px",
-  height: "400px",
+  width: "100%",
+  height: "600px",
 };
 
-const center = {
-  lat: 37.772,
-  lng: -122.214,
+const location = {
+  lat: 23.733348,
+  lng: 90.406707,
 };
 
 function Direction() {
-  const onLoad = (marker) => {
-    console.log("marker: ", marker);
-  };
-
+  const { address } = UseAuth();
+  const [directionResponse, setDirectionResponse] = useState(null);
   return (
-    <LoadScript googleMapsApiKey="AIzaSyAmfgJ4cUkP46ulPwSlbnLZ0hcmbBYxexk">
-      <GoogleMap
-        id="marker-example"
-        mapContainerStyle={containerStyle}
-        zoom={10}
-        center={center}
-      >
-        <Marker onLoad={onLoad} position={center} />
+    <LoadScript googleMapsApiKey="AIzaSyCdIAAKYGyxL9CYy7Qrm4zOJpsQkCNxBGI">
+      <GoogleMap mapContainerStyle={containerStyle} center={location} zoom={16}>
+        {address !== "" && (
+          <DirectionsService
+            // required
+            options={{
+              destination: address,
+              origin: "Chattogram",
+              travelMode: "DRIVING",
+            }}
+            // required
+            callback={(res) => {
+              if (res !== null) {
+                setDirectionResponse(res);
+              }
+            }}
+          />
+        )}
+        {directionResponse && (
+          <DirectionsRenderer
+            // required
+            options={{
+              directions: directionResponse,
+            }}
+          />
+        )}
       </GoogleMap>
     </LoadScript>
   );

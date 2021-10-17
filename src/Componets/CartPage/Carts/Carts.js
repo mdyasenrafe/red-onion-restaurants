@@ -1,8 +1,11 @@
 import React from "react";
 import { Col, Container, FloatingLabel, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import UseAuth from "../../../Hooks/UseAuth";
 
 const Carts = (props) => {
+  const { address, setAdress } = UseAuth();
   let subLotal = 0;
   let deliveryFee = 0;
   let tax = (12 / 100) * subLotal;
@@ -11,7 +14,7 @@ const Carts = (props) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => setAdress(data.address);
   return (
     <div className="py-5">
       <Container>
@@ -51,13 +54,17 @@ const Carts = (props) => {
                   className="mb-3 mt-2 w-75"
                 >
                   <Form.Control
-                    {...register("address", { required: true })}
+                    onBlur={(e) => setAdress(e.target.value)}
+                    {...register("address", { required: true, minLength: "5" })}
                     type="address"
                     placeholder="Enter Your Adress"
                   />
                 </FloatingLabel>
-                {errors.address && (
+                {errors.address?.type === "required" && (
                   <span className="text-danger">This field is required</span>
+                )}
+                {errors.address?.type === "minLength" && (
+                  <span className="text-danger">Your Address is not Valid</span>
                 )}
                 <FloatingLabel
                   controlId="floatingInput"
@@ -74,6 +81,7 @@ const Carts = (props) => {
                   <span className="text-danger">This field is required</span>
                 )}
                 <br />
+                <input className="btn btn-danger" type="submit" />
               </Form>
             </div>
           </Col>
@@ -131,9 +139,23 @@ const Carts = (props) => {
                 </div>
               </div>
               <div>
-                <button className="btn btn-outline-danger d-block w-100">
-                  Palace Order
-                </button>
+                {address.length >= 4 ? (
+                  <Link
+                    className="text-dark text-decoration-none"
+                    to="/order-complete"
+                  >
+                    <button className="btn btn-outline-danger d-block w-100">
+                      Place Order
+                    </button>
+                  </Link>
+                ) : (
+                  <button
+                    className="btn btn-outline-danger d-block w-100"
+                    disabled
+                  >
+                    Palace Order
+                  </button>
+                )}
               </div>
             </div>
           </Col>

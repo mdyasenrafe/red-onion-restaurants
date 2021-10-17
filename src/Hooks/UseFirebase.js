@@ -17,6 +17,7 @@ const UseFirebase = () => {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [address, setAdress] = useState("");
 
   const auth = getAuth();
 
@@ -80,8 +81,10 @@ const UseFirebase = () => {
     setIsLoading,
     setError,
     setUser,
+    setAdress,
     updateProfileEmail,
     signInWithEmail,
+    address,
   };
 };
 

@@ -8,7 +8,6 @@ const PrivateRoute = ({ children, ...rest }) => {
   if (isLoading === true) {
     return <Spinner animation="border" variant="danger" />;
   }
-  console.log(isLoading, user?.email);
   return (
     <Route
       {...rest}

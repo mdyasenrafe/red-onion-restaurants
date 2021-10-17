@@ -12,7 +12,7 @@ import Registation from "./Componets/Registation/Registation";
 import AuthProvider from "./Context/AuthProvider";
 import Carts from "./Componets/CartPage/Carts/Carts";
 import PrivateRoute from "./Componets/PrivateRoute/PrivateRoute";
-import Map from "./Componets/Map/Map";
+import OrderComplete from "./Componets/OrderComplete/OrderComplete";
 
 function App() {
   // const [count, setCount] = useState(1);
@@ -27,13 +27,6 @@ function App() {
     }
     setCart(CheckItem);
   };
-
-  // const handlePlus = () => {
-  //   setCount(count + 1);
-  // };
-  // const handleMinus = () => {
-  //   setCount(count - 1);
-  // };
   return (
     <>
       <AuthProvider>
@@ -46,8 +39,8 @@ function App() {
             <Route path="/login">
               <Login></Login>
             </Route>
-            <Route path="/map">
-              <Map></Map>
+            <Route path="/order-complete">
+              <OrderComplete></OrderComplete>
             </Route>
             <Route path="/signup">
               <Registation></Registation>
