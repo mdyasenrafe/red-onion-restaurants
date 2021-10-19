@@ -9,7 +9,14 @@ const Carts = (props) => {
   const { address, setAdress } = UseAuth();
   let subLotal = 0;
   let deliveryFee = 0;
-  let tax = (12 / 100) * subLotal;
+  let tax = 0;
+  console.log(props.data);
+  for (const data of props.data) {
+    subLotal = subLotal + data.price;
+    tax = (12 / 100) * subLotal;
+    deliveryFee = 5;
+  }
+
   const {
     register,
     handleSubmit,
@@ -38,8 +45,6 @@ const Carts = (props) => {
               {props.data.map((data) => {
                 return (
                   <>
-                    {((deliveryFee = 5), (subLotal = subLotal + data.price))}
-
                     <div className="d-flex align-items-center p-3 mt-4 shadow-lg rounded-lg">
                       <div className="d-flex align-items-center">
                         <img className="w-25" src={data?.image} alt="" />
@@ -72,7 +77,7 @@ const Carts = (props) => {
                     <h5> Delivery Fee :</h5> <h5>${deliveryFee}</h5>
                   </div>
                   <div className="d-flex justify-content-between">
-                    <h5> Tax :</h5> <h5>{tax}</h5>
+                    <h5> Tax :</h5> <h5>{tax.toFixed(2)}</h5>
                   </div>
                   <div className="d-flex justify-content-between">
                     <h5> Grand Total : </h5>

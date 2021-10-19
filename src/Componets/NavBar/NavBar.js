@@ -43,11 +43,13 @@ const NavBar = (props) => {
               <>
                 <span className="d-flex align-items-center ms-4">
                   <span>{user?.displayName}</span>
-                  <Nav.Link
-                    onClick={logOut}
-                    className="btn btn-danger rounded-pill mx-2 text-light px-3 "
-                  >
-                    Log out
+                  <Nav.Link>
+                    <button
+                      onClick={logOut}
+                      className="btn btn-danger rounded-pill mx-2 text-light px-3 "
+                    >
+                      Log out
+                    </button>
                   </Nav.Link>
                 </span>
               </>
