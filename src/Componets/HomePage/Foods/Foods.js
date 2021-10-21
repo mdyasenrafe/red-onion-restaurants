@@ -59,7 +59,7 @@ const Foods = (props) => {
           <Food data={food} key={food.id}></Food>
         ))}
       </Row>
-      <div className="text-center pt-5">
+      <div className="text-center pt-5 mt-5">
         {props.data?.length >= 1 ? (
           <button className="btn btn-danger rounded-lg">
             Check Out Your Food
