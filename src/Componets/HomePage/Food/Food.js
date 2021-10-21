@@ -7,7 +7,7 @@ const Food = (props) => {
   const { id, name, shortDescription, image, price } = props.data;
   return (
     <Col>
-      <Card className="text-center border-0 h-100 p-3 shadow-lg rounded-lg">
+      <Card className="text-center border-0 h-100 p-3 shadow-lg rounded-lg mx-4 mx-md-0 mt-5  ">
         <div>
           <Card.Img className="w-75" variant="top" src={image} />
         </div>

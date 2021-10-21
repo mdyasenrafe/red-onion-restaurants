@@ -24,9 +24,12 @@ const Details = (props) => {
     }
   };
   return (
-    <section className="py-5">
+    <section className="py-5 mx-4 mx-md-0">
       <Container>
-        <Row className="align-items-center">
+        <Row className="align-items-center flex-row-reverse">
+          <Col sm={12} md={6}>
+            <img className="w-100" src={findFood?.image} alt="" />
+          </Col>
           <Col sm={12} md={6}>
             <h1>{findFood?.name}</h1>
             <p>{findFood?.fullDescription}</p>
@@ -76,9 +79,6 @@ const Details = (props) => {
                 </button>
               )}
             </div>
-          </Col>
-          <Col sm={12} md={6}>
-            <img className="w-100" src={findFood?.image} alt="" />
           </Col>
         </Row>
       </Container>
