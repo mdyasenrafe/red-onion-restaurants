@@ -54,7 +54,7 @@ const Details = (props) => {
               {checkItem ? (
                 <>
                   <button
-                    className="btn btn-danger  rounded-pill text-light px-4"
+                    className="btn btn-danger  rounded-pill text-light px-4 mt-4"
                     disabled
                   >
                     Add to Cart
@@ -70,7 +70,7 @@ const Details = (props) => {
                     (findFood.price = findFood.price * quantity),
                     handleAddToCart(findFood)
                   )}
-                  className="btn btn-danger  rounded-pill text-light px-4"
+                  className="btn btn-danger  rounded-pill text-light px-4 mt-4"
                 >
                   Add to Cart
                 </button>
