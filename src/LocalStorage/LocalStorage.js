@@ -5,6 +5,7 @@ const addToDb = (id) => {
   } else {
     storedFood[id] = 1;
   }
+  console.log("stored Food Local Storage", storedFood);
   updateDb(storedFood);
 };
 
@@ -16,13 +17,14 @@ const clearTheCart = () => {
   localStorage.removeItem("food");
 };
 
-// const removeDb =(id)=>{
-//     const storedCart = getdb()
-//     delete stored
-// }
+const removeFromDb = (id) => {
+  const foodCart = getDb();
+  delete foodCart[id];
+  updateDb(foodCart);
+};
 
 const getDb = () => {
   const exists = localStorage.getItem("food");
   return exists ? JSON.parse(exists) : {};
 };
-export { addToDb, getDb, clearTheCart };
+export { addToDb, getDb, clearTheCart, removeFromDb };

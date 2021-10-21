@@ -1,4 +1,5 @@
 import NavBar from "./Componets/NavBar/NavBar";
+import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./Componets/HomePage/Home/Home";
@@ -17,16 +18,20 @@ import UseFoods from "./Hooks/UseFoods";
 
 function App() {
   const [cart, setCart] = useState([]);
+  const [price1, setPrice1] = useState(0);
   const { foods } = UseFoods();
+
   const handleAddToCart = (item) => {
     addToDb(item.name);
     const newItem = [...cart, item];
+    console.log(newItem);
     let CheckItem = [];
     for (const data of newItem) {
       if (CheckItem.indexOf(data) === -1) {
         CheckItem.push(data);
       }
     }
+
     setCart(CheckItem);
   };
 
@@ -35,15 +40,21 @@ function App() {
       const getDbMeal = getDb();
       let storeCart = [];
       for (const key in getDbMeal) {
-        console.log(key);
         const addedMeal = foods.find((data) => data.name === key);
-        console.log("addedMeal", addedMeal);
-        storeCart.push(addedMeal);
+        if (addedMeal) {
+          storeCart.push(addedMeal);
+        }
       }
       setCart(storeCart);
-      console.log("storeCart", storeCart);
     }
   }, [foods]);
+
+  const handlePlus = (item) => {
+    const quantity = item.quantity;
+    const total = quantity + 1;
+    console.log(total);
+  };
+
   return (
     <>
       <AuthProvider>
@@ -56,14 +67,19 @@ function App() {
             <Route path="/login">
               <Login></Login>
             </Route>
-            <Route path="/order-complete">
+            <PrivateRoute path="/order-complete">
               <OrderComplete></OrderComplete>
-            </Route>
+            </PrivateRoute>
             <Route path="/signup">
               <Registation></Registation>
             </Route>
             <PrivateRoute path="/cart">
-              <Carts data={cart}></Carts>
+              <Carts
+                price1={price1}
+                setPrice1={setPrice1}
+                setCart={setCart}
+                data={cart}
+              ></Carts>
             </PrivateRoute>
             <Route path="/food/:id">
               <Details data={cart} handleAddToCart={handleAddToCart}></Details>

@@ -10,7 +10,7 @@ const Banner = () => {
           <input
             type="text"
             className="banner-input form-control"
-            placeholder="Recipient's username "
+            placeholder="Enter Your Food Name"
             aria-label="Recipient's username"
             aria-describedby="button-addon2"
           />
