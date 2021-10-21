@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
+import { Link } from "react-router-dom";
 import UseFoods from "../../../Hooks/UseFoods";
 
 const Details = (props) => {
@@ -23,6 +24,13 @@ const Details = (props) => {
       setQuantity(0);
     }
   };
+  const location = useLocation();
+  const history = useHistory();
+  const redirect_url = "/cart";
+  const handleCart = () => {
+    history.push(redirect_url);
+  };
+  console.log(checkItem, data);
   return (
     <section className="py-5 mx-4 mx-md-0">
       <Container>
@@ -31,12 +39,16 @@ const Details = (props) => {
             <img className="w-100" src={findFood?.image} alt="" />
           </Col>
           <Col sm={12} md={6}>
-            <h1>{findFood?.name}</h1>
+            <h1>{checkItem?.name}</h1>
             <p>{findFood?.fullDescription}</p>
             <div className="d-flex">
+              {/* {checkItem ? (
+                <h3 className="fw-bold fs-2 pt-2">${findFood?.price}</h3>
+              ) : ( */}
               <h3 className="fw-bold fs-2 pt-2">
                 ${findFood?.price * quantity}
               </h3>
+              {/* )} */}
               <div className="ms-5 border-2  rounded-pill bg-light">
                 <button
                   onClick={increasePrice}
@@ -67,16 +79,18 @@ const Details = (props) => {
                   </span>
                 </>
               ) : (
-                <button
-                  onClick={() => (
-                    (findFood["quantity"] = quantity),
-                    (findFood.price = findFood.price * quantity),
-                    handleAddToCart(findFood)
-                  )}
-                  className="btn btn-danger  rounded-pill text-light px-4 mt-4"
-                >
-                  Add to Cart
-                </button>
+                <Link to="/cart">
+                  <button
+                    onClick={() => (
+                      (findFood["quantity"] = quantity),
+                      (findFood.price = findFood.price * quantity),
+                      handleAddToCart(findFood)
+                    )}
+                    className="btn btn-danger  rounded-pill text-light px-4 mt-4"
+                  >
+                    Add to Cart
+                  </button>
+                </Link>
               )}
             </div>
           </Col>
