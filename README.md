@@ -1,6 +1,6 @@
 # This is Red Onion React Project
 
-this is single page application.[live websilte](https://red-onion-restaurent-project.web.app/)
+It is the Restaurants website and single-page application. It is a login system with a firebase and private routes. Users can order this site, and they can delete orders.it data has been saved in local storage.[live websilte](https://red-onion-restaurent-project.web.app/)
 
 # features
 
