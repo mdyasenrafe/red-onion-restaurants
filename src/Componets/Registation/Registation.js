@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import UseAuth from "../../Hooks/UseAuth";
 import "./Registation.css";
 
@@ -14,7 +14,7 @@ const Registation = () => {
     setUser,
     updateProfileEmail,
   } = UseAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const redirectUrl = location?.state?.from?.pathname || "/home";
   const {
@@ -27,7 +27,7 @@ const Registation = () => {
   const handleGogleSignin = () => {
     signInUsingGogle()
       .then((result) => {
-        history.push(redirectUrl);
+        navigate(redirectUrl);
         setError("");
         setIsLoading(false);
         setUser(result.user);
@@ -51,7 +51,7 @@ const Registation = () => {
     createEmailUser(data.email, data.password, data.name)
       .then((result) => {
         updateProfileEmail(data.name);
-        history.push(redirectUrl);
+        navigate.push(redirectUrl);
         setIsLoading(false);
         const user = result.user;
         setUser(user);

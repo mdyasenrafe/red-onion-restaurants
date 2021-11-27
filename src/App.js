@@ -1,7 +1,7 @@
 import NavBar from "./Componets/NavBar/NavBar";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Componets/HomePage/Home/Home";
 import NotFound from "./Componets/NotFound/NotFound";
 import Footer from "./Componets/Footer/Footer";
@@ -18,13 +18,12 @@ import UseFoods from "./Hooks/UseFoods";
 
 function App() {
   const [cart, setCart] = useState([]);
-  const [price1, setPrice1] = useState(0);
   const { foods } = UseFoods();
 
+  // add to cart
   const handleAddToCart = (item) => {
     addToDb(item.name);
     const newItem = [...cart, item];
-    console.log(newItem);
     let CheckItem = [];
     for (const data of newItem) {
       if (CheckItem.indexOf(data) === -1) {
@@ -35,6 +34,7 @@ function App() {
     setCart(CheckItem);
   };
 
+  // get db from local storage
   useEffect(() => {
     if (foods.length) {
       const getDbMeal = getDb();
@@ -49,48 +49,43 @@ function App() {
     }
   }, [foods]);
 
-  const handlePlus = (item) => {
-    const quantity = item.quantity;
-    const total = quantity + 1;
-    console.log(total);
-  };
-
   return (
     <>
       <AuthProvider>
         <Router>
           <NavBar data={cart}></NavBar>
-          <Switch>
-            <Route path="/home">
-              <Home data={cart}></Home>
-            </Route>
-            <Route path="/login">
-              <Login></Login>
-            </Route>
-            <PrivateRoute path="/order-complete">
-              <OrderComplete></OrderComplete>
-            </PrivateRoute>
-            <Route path="/signup">
-              <Registation></Registation>
-            </Route>
-            <PrivateRoute path="/cart">
-              <Carts
-                price1={price1}
-                setPrice1={setPrice1}
-                setCart={setCart}
-                data={cart}
-              ></Carts>
-            </PrivateRoute>
-            <Route path="/food/:id">
-              <Details data={cart} handleAddToCart={handleAddToCart}></Details>
-            </Route>
-            <Route exact path="/">
-              <Home></Home>
-            </Route>
-            <Route path="*">
-              <NotFound></NotFound>
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path="/home" element={<Home data={cart}></Home>}></Route>
+            <Route path="/login" element={<Login></Login>}></Route>
+            <Route
+              path="/order-complete"
+              element={
+                <PrivateRoute>
+                  <OrderComplete></OrderComplete>
+                </PrivateRoute>
+              }
+            ></Route>
+            <Route path="/signup" element={<Registation></Registation>}></Route>
+            <Route
+              path="/cart"
+              element={
+                <PrivateRoute>
+                  <Carts setCart={setCart} data={cart}></Carts>
+                </PrivateRoute>
+              }
+            ></Route>
+            <Route
+              path="/food/:id"
+              element={
+                <Details
+                  data={cart}
+                  handleAddToCart={handleAddToCart}
+                ></Details>
+              }
+            ></Route>
+            <Route exact path="/" element={<Home></Home>}></Route>
+            <Route path="*" element={<NotFound></NotFound>}></Route>
+          </Routes>
           <Footer></Footer>
         </Router>
       </AuthProvider>

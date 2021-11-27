@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FloatingLabel, Form } from "react-bootstrap";
 import UseAuth from "../../Hooks/UseAuth";
 
@@ -8,16 +8,16 @@ const Login = () => {
   // get value from useAuth
   const { signInUsingGogle, setError, setIsLoading, setUser, signInWithEmail } =
     UseAuth();
-  // get location and history
+  // get location and navigate
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   // set url where user from
   const redirectUrl = location?.state?.from?.pathname || "/home";
   // handleGogleSignin
   const handleGogleSignin = () => {
     signInUsingGogle()
       .then((result) => {
-        history.push(redirectUrl);
+        navigate(redirectUrl);
         setError("");
         setIsLoading(false);
         setUser(result.user);
@@ -40,7 +40,7 @@ const Login = () => {
   const onSubmit = (data) => {
     signInWithEmail(data.email, data.password)
       .then((result) => {
-        history.push(redirectUrl);
+        navigate.push(redirectUrl);
         const user = result.user;
         setUser(user);
       })

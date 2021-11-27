@@ -14,7 +14,7 @@
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.17.4",
     "react-router-bootstrap": "^0.25.0",
-    "react-router-dom": "^5.3.0",
+    "react-router-dom": "6",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },

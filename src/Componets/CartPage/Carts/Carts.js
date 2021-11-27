@@ -8,7 +8,6 @@ import Cart from "../Cart/Cart";
 import ShipmentForm from "./ShipmentForm";
 
 const Carts = (props) => {
-  const { foods } = UseFoods();
   const { address } = UseAuth();
   const setCart = props.setCart;
   const handlePlace = () => {
@@ -16,8 +15,6 @@ const Carts = (props) => {
     setCart();
   };
   let price = 0;
-  const increasePrice = (item) => {};
-  const decreasePrice = (item) => {};
   let deliveryFee = 0;
   let tax = 0;
 

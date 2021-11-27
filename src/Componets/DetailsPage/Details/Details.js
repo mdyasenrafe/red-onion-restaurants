@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useHistory, useLocation, useParams } from "react-router";
+import { useNavigate, useLocation, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import UseFoods from "../../../Hooks/UseFoods";
 
@@ -25,10 +25,10 @@ const Details = (props) => {
     }
   };
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const redirect_url = "/cart";
   const handleCart = () => {
-    history.push(redirect_url);
+    navigate(redirect_url);
   };
   console.log(checkItem, data);
   return (
